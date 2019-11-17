@@ -1,4 +1,6 @@
 class Order < ApplicationRecord
+    enum status: { ready: 0, production: 1, closing: 2, sent: 3} 
+
     validates :reference, presence: true
     validates :purchase_channel, presence: true
     validates :client_name, presence: true

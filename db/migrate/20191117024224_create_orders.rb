@@ -9,6 +9,7 @@ class CreateOrders < ActiveRecord::Migration[6.0]
       t.float :total_value
       t.text :line_items
 
+
       t.timestamps
     end
   end
