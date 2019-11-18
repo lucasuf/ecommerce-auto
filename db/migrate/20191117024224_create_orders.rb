@@ -8,8 +8,7 @@ class CreateOrders < ActiveRecord::Migration[6.0]
       t.string :delivery_service
       t.float :total_value
       t.text :line_items
-
-
+      t.belongs_to :batch
       t.timestamps
     end
   end

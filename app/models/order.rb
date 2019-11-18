@@ -1,4 +1,5 @@
 class Order < ApplicationRecord
+    belongs_to :batch, optional: true
     enum status: { ready: 0, production: 1, closing: 2, sent: 3} 
 
     validates :reference, presence: true
