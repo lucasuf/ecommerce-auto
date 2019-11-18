@@ -15,6 +15,13 @@ ActiveRecord::Schema.define(version: 2019_11_17_150926) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "batches", force: :cascade do |t|
+    t.string "reference_batch"
+    t.string "purchase_channel_batch"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "orders", force: :cascade do |t|
     t.string "reference"
     t.string "purchase_channel"
@@ -23,9 +30,11 @@ ActiveRecord::Schema.define(version: 2019_11_17_150926) do
     t.string "delivery_service"
     t.float "total_value"
     t.text "line_items"
+    t.bigint "batch_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "status", default: 0
+    t.index ["batch_id"], name: "index_orders_on_batch_id"
   end
 
 end
