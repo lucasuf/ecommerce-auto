@@ -55,11 +55,11 @@ module Api
             end
             
             def update
-                article = Article.find(params[:id])
-                if article.update(article_params)
-                  render json: {status: 'SUCCESS', message:'Updated order', data:article},status: :ok
+                order = Order.find(params[:id])
+                if order.update(order_params)
+                  render json: {status: 'SUCCESS', message:'Updated order', data:order},status: :ok
                 else
-                  render json: {status: 'ERROR', message:'Order not updated', data:article.errors},status: :unprocessable_entity
+                  render json: {status: 'ERROR', message:'Order not updated', data:order.errors},status: :unprocessable_entity
                 end
             end
 
