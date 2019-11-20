@@ -14,9 +14,6 @@ module Api
     module V1
         class OrdersController < ApplicationController
             def index
-                # Optional action. Just for example purpose.
-                #orders = Order.order('created_at DESC')
-                #render json: {status: 'SUCCESS', message:'List of orders', data:orders}
                 if params[:client_name]
                     #http://localhost:3000/api/v1/orders?client_name=Lucas
                     @orders = Order.where("client_name = ?", params[:client_name])
@@ -59,7 +56,7 @@ module Api
             
             def update
                 article = Article.find(params[:id])
-                if article.update_attributes(article_params)
+                if article.update(article_params)
                   render json: {status: 'SUCCESS', message:'Updated order', data:article},status: :ok
                 else
                   render json: {status: 'ERROR', message:'Order not updated', data:article.errors},status: :unprocessable_entity
