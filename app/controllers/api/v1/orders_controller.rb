@@ -29,8 +29,14 @@ module Api
                         render json: {status: 'SUCCESS', message:'List of orders', data:@orders}
                     end
                 else
-                    @orders = Order.order('created_at DESC')
-                    render json: {status: 'SUCCESS', message:'List of orders', data:@orders}
+                    if params[:report] == 'yes'
+                        @orders_by_channel =  Order.distinct(:purchase_channel).group(:purchase_channel).count
+                        @total_value_by_channel =  Order.distinct(:purchase_channel).group(:purchase_channel).sum(:total_value)
+                        render json: {status: 'SUCCESS', message:'Finnacial Report', orders_by_channel:@orders_by_channel, total_value_by_channel:@total_value_by_channel }
+                    else
+                        @orders = Order.order('created_at DESC')
+                        render json: {status: 'SUCCESS', message:'List of orders', data:@orders}
+                    end
                 end
             end
 
