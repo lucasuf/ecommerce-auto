@@ -14,6 +14,8 @@ We also need a way to input a Batch and a Delivery Service and those Orders shou
 module Api
     module V1
         class BatchesController < ApplicationController
+            # While authetication process is not implemented
+            skip_before_action :verify_authenticity_token
             def index
                 @batches = Batch.order('created_at DESC')
                 render json: {status: 'SUCCESS', message:'List of orders', data:@batches}

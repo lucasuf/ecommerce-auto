@@ -13,6 +13,8 @@
 module Api
     module V1
         class OrdersController < ApplicationController
+            # While authetication process is not implemented
+            skip_before_action :verify_authenticity_token
             def index
                 if params[:client_name]
                     #http://localhost:3000/api/v1/orders?client_name=Lucas
@@ -35,7 +37,7 @@ module Api
                         render json: {status: 'SUCCESS', message:'Finnacial Report', orders_by_channel:@orders_by_channel, total_value_by_channel:@total_value_by_channel }
                     else
                         @orders = Order.order('created_at DESC')
-                        render json: {status: 'SUCCESS', message:'List of orders', data:@orders}
+                        #render json: {status: 'SUCCESS', message:'List of orders', data:@orders}
                     end
                 end
             end
