@@ -1,3 +1,7 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+	root :to => "api/v1/orders#index"
+	scope module: 'api/v1' do
+			resources :orders
+			resources :batches, param: :reference_batch
+	end
 end
