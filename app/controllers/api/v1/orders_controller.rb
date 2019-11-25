@@ -13,8 +13,10 @@
 module Api
     module V1
         class OrdersController < ApplicationController
+            #before_action :authorize_request, except: :create
             # While authetication process is not implemented
-            skip_before_action :verify_authenticity_token
+            # skip_before_action :verify_authenticity_token
+            before_action :authenticate_user!, except: [:index, :show]
             def index
                 if params[:client_name]
                     #http://localhost:3000/api/v1/orders?client_name=Lucas
@@ -75,7 +77,6 @@ module Api
             def order_params
                 params.permit(:reference, :purchase_channel, :client_name, :adress, :delivery_service, :total_value, :line_items)
             end
-
         end
     end    
 end
