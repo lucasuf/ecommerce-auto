@@ -15,7 +15,7 @@ module Api
     module V1
         class BatchesController < ApplicationController
             # While authetication process is not implemented
-            skip_before_action :verify_authenticity_token
+            before_action :authenticate_user!, except: :index
             def index
                 @batches = Batch.order('created_at DESC')
                 render json: {status: 'SUCCESS', message:'List of orders', data:@batches}
