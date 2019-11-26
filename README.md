@@ -2,6 +2,8 @@
 ## 1. Description
 This project aims to create an api for manage and visualizing orders and batches of orders. For that, some actions were implemented. The following sections will cover requirements, additional stuff, stack used on the project, how to run, API usage guide and a small explanation of how we can handle some impprovements on the platform.
 
+**You can also check a video of me executing the actions and exploring the project in this [link](https://drive.google.com/open?id=1YkpeZTt5gng1CYc1ga1_LqQb8nXKt7pe)!!**
+
 ## 2. Project Requirements
 Actions implemented:
 - [x] Create a new order
@@ -76,3 +78,5 @@ docker-compose run web rails test test/controllers/orders_controller_test.rb
 > Already implemented on update method for order in controller.
 * A web UI to control everything directly, without the need of going thought the API.
 > List all orders were implemented using bootstrap. For cover all other actions, I would create some other blocks with corresponding inputs, and trigger the remain methods from the controllers. I would also create a login page, in order to authenticate our users.
+* Cover edge cases and wrong inputs.
+> I covered some edge cases, but there is a lot to consider yet. It can be clear when we have more tests implemented.
