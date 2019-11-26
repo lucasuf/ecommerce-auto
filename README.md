@@ -72,7 +72,7 @@ docker-compose run web rails test test/controllers/orders_controller_test.rb
 > Only users with staff and admin priveleges can create new users and edit their permissions. We would have a permission associated with our entities and actions, that can be given to other users. It would prevent scripts to create and messing up with our platform.
 * A permission layer, that way we can be sure that each user is only working with their stuff.
 > To ensure that users only work with their orders, I would compare client name attribute with user name. If it's equal, then he can work with the order.
-* ~~Sometimes people confuses Moto G5 with Moto G5S and we need a way to modify Orders in production. ~~
-> Already implemented on update method for order in controller
+* ~~Sometimes people confuses Moto G5 with Moto G5S and we need a way to modify Orders in production.~~
+> Already implemented on update method for order in controller.
 * A web UI to control everything directly, without the need of going thought the API.
 > List all orders were implemented using bootstrap. For cover all other actions, I would create some other blocks with corresponding inputs, and trigger the remain methods from the controllers. I would also create a login page, in order to authenticate our users.
