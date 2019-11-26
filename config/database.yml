@@ -4,25 +4,28 @@
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
 #
+
 default: &default
   adapter: postgresql
   encoding: unicode
   username: postgres
-  password: admin
-  host: localhost
+# Uncomment those lines when running on localhost. Comment the ones defined now for docker
+#  password: admin
+#  host: localhost
+  password:
+  host: db
   pool: 5
-
 
 development:
   <<: *default
-  database: ecommerce_db
+  database: ecommerce_db_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: ecommerce_db
+  database: ecommerce_db_test
 
 production:
   <<: *default

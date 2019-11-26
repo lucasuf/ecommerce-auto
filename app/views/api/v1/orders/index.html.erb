@@ -49,59 +49,60 @@
     <title>Hello, world!</title>
   </head>
   <body>
-    <%- model_class = Order -%>
-    <div class="page-header">
-      <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
-      <input class="form-control" id="myInput" type="text" placeholder="Search..">
-    </div>
-    
-    <table class="table table-striped sortable" id="example">
-      <thead>
-        <tr>
-          <th><%= model_class.human_attribute_name(:id) %></th>
-          <th><%= model_class.human_attribute_name(:reference) %></th>
-          <th><%= model_class.human_attribute_name(:purchase_channel) %></th>
-          <th><%= model_class.human_attribute_name(:client_name) %></th>
-          <th><%= model_class.human_attribute_name(:adress) %></th>
-          <th><%= model_class.human_attribute_name(:delivery_service) %></th>
-          <th><%= model_class.human_attribute_name(:total_value) %></th>
-          <th><%= model_class.human_attribute_name(:line_items) %></th>
-          <th><%= model_class.human_attribute_name(:batch_id) %></th>
-          <th><%= model_class.human_attribute_name(:status) %></th>
-          <th><%= model_class.human_attribute_name(:created_at) %></th>
-        </tr>
-      </thead>
-      <tbody id="myTable">
-        <% @orders.each do |order| %>
+    <div class="container">
+      <%- model_class = Order -%>
+      <div class="page-header">
+      <h1> e-commerce-auto | List orders</h1>
+        <input class="form-control" id="myInput" type="text" placeholder="Search in orders...">
+      </div>
+      
+      <table class="table table-striped sortable" id="example">
+        <thead>
           <tr>
-            <td><%= link_to order.id, order_path(order) %></td>
-            <td><%= order.reference %></td>
-            <td><%= order.purchase_channel %></td>
-            <td><%= order.client_name %></td>
-            <td><%= order.adress %></td>
-            <td><%= order.delivery_service %></td>
-            <td><%= order.total_value %></td>
-            <td><%= order.line_items %></td>
-            <td><%= order.batch_id %></td>
-            <td><%= order.status %></td>
-            <td><%=l order.created_at %></td>
-            <td>
-            </td>
+            <th><%= model_class.human_attribute_name(:id) %></th>
+            <th><%= model_class.human_attribute_name(:reference) %></th>
+            <th><%= model_class.human_attribute_name(:purchase_channel) %></th>
+            <th><%= model_class.human_attribute_name(:client_name) %></th>
+            <th><%= model_class.human_attribute_name(:adress) %></th>
+            <th><%= model_class.human_attribute_name(:delivery_service) %></th>
+            <th><%= model_class.human_attribute_name(:total_value) %></th>
+            <th><%= model_class.human_attribute_name(:line_items) %></th>
+            <th><%= model_class.human_attribute_name(:batch_id) %></th>
+            <th><%= model_class.human_attribute_name(:status) %></th>
+            <th><%= model_class.human_attribute_name(:created_at) %></th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <script>
-    $(document).ready(function(){
-      $("#myInput").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#myTable tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        </thead>
+        <tbody id="myTable">
+          <% @orders.each do |order| %>
+            <tr>
+              <td><%= link_to order.id, order_path(order) %></td>
+              <td><%= order.reference %></td>
+              <td><%= order.purchase_channel %></td>
+              <td><%= order.client_name %></td>
+              <td><%= order.adress %></td>
+              <td><%= order.delivery_service %></td>
+              <td><%= order.total_value %></td>
+              <td><%= order.line_items %></td>
+              <td><%= order.batch_id %></td>
+              <td><%= order.status %></td>
+              <td><%=l order.created_at %></td>
+              <td>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <script>
+      $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#myTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
         });
       });
-    });
-    </script>
-
+      </script>
+    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

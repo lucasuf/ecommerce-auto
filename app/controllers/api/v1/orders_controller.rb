@@ -1,52 +1,47 @@
-# ---------------------------------------------------------- #
-# This class will define all methods for Order controller. 
-# It will be defined thet following end points:
-    # index: REST API for working with the orders:
-    #       to get orders for specfic client example: /api/v1/orders?client_name=Lucas
-    #       to get orders for a channel example: /api/v1/orders?purchase_channel=Site%20BR
-    #       to get orders for a channel passing status example: /api/v1/orders?purchase_channel=Site%20BR&status=production
-    # show: show order by id
-    # create: Create a new order
-    # destroy: Delete an order
-    # update: To update values from an order
-# ---------------------------------------------------------- #
 module Api
     module V1
         class OrdersController < ApplicationController
-            # While authetication process is not implemented
-            skip_before_action :verify_authenticity_token
+            before_action :authenticate_user!, except: [:index, :show]
+            
+            # List orders according with query
             def index
+                # Checking orders for a specific client
                 if params[:client_name]
-                    #http://localhost:3000/api/v1/orders?client_name=Lucas
                     @orders = Order.where("client_name = ?", params[:client_name])
                     render json: {status: 'SUCCESS', message:'List of orders for specific client', data:@orders}
+                
+                # Checking orders for purchase_channel and status
                 elsif params[:purchase_channel]
                     if params[:status]
-                        #http://localhost:3000/api/v1/orders?purchase_channel=Site%20BR&status=production
                         @orders = Order.where("purchase_channel = ? AND status = ?", params[:purchase_channel], Order.statuses[params[:status]])
-                        render json: {status: 'SUCCESS', message:'List of orders', data:@orders}
+                        render json: {status: 'SUCCESS', message:'List of orders using status and purchase channel', data:@orders}
                     else
-                        #http://localhost:3000/api/v1/orders?purchase_channel=Site%20BR
                         @orders = Order.where("purchase_channel = ?", params[:purchase_channel])
-                        render json: {status: 'SUCCESS', message:'List of orders', data:@orders}
+                        render json: {status: 'SUCCESS', message:'List of orders using purchase channel', data:@orders}
                     end
+                
+                # Checking Financial report. For test use test parameter. Else it will render on index view
                 else
                     if params[:report] == 'yes'
                         @orders_by_channel =  Order.distinct(:purchase_channel).group(:purchase_channel).count
                         @total_value_by_channel =  Order.distinct(:purchase_channel).group(:purchase_channel).sum(:total_value)
-                        render json: {status: 'SUCCESS', message:'Finnacial Report', orders_by_channel:@orders_by_channel, total_value_by_channel:@total_value_by_channel }
-                    else
+                        render json: {status: 'SUCCESS', message:'Finacial Report', orders_by_channel:@orders_by_channel, total_value_by_channel:@total_value_by_channel }
+                    elsif params[:test] == 'yes'
                         @orders = Order.order('created_at DESC')
-                        #render json: {status: 'SUCCESS', message:'List of orders', data:@orders}
+                        render json: {status: 'SUCCESS', message:'List of orders', data:@orders}
+                    else
+                        @orders = Order.order('created_at DESC')                        
                     end
                 end
             end
 
+            # Showing specific order by id
             def show
 				order = Order.find(params[:id])
 				render json: {status: 'SUCCESS', message:'Loaded order.', data:order},status: :ok
 			end
 
+            # Create a new order
             def create
                 order = Order.new(order_params)
 				if order.save
@@ -55,13 +50,15 @@ module Api
 					render json: {status: 'ERROR', message: 'Order not saved', data:order.errors}, status: :unprocessable_entity
 				end
             end
-
+            
+            # Destroy an order using id
             def destroy
 				order = Order.find(params[:id])
 				order.destroy
 				render json: {status: 'SUCCESS', message: 'Deleted order.', data: order}, status: :ok
             end
             
+            # Update an order using id
             def update
                 order = Order.find(params[:id])
                 if order.update(order_params)
@@ -75,7 +72,6 @@ module Api
             def order_params
                 params.permit(:reference, :purchase_channel, :client_name, :adress, :delivery_service, :total_value, :line_items)
             end
-
         end
     end    
 end

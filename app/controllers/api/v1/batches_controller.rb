@@ -1,25 +1,15 @@
-=begin 
-1. Create a Batch
-We need a way to create a Batch and pass those Orders to the production status. 
-We should input the Purchase Channel and receive back the Reference of the created Batch 
-along with the number of Orders that were included.
-
-2. Produce a Batch
-Pass a Batch from production to closing using reference number.
-
-3. Send a Batch
-We also need a way to input a Batch and a Delivery Service and those Orders should be marked as sent.
-
-=end
 module Api
     module V1
         class BatchesController < ApplicationController
-            # While authetication process is not implemented
-            skip_before_action :verify_authenticity_token
+            before_action :authenticate_user!, except: :index
+            
+            # List all batches
             def index
                 @batches = Batch.order('created_at DESC')
-                render json: {status: 'SUCCESS', message:'List of orders', data:@batches}
+                render json: {status: 'SUCCESS', message:'List of batches', data:@batches}
             end
+
+            # Create a new batch for given purchase_channel
             def create
                 batch = Batch.new(batch_params)
                 # Setting reference number
@@ -37,7 +27,8 @@ module Api
 					render json: {status: 'ERROR', message: 'Batch not saved', data:batch.errors}, status: :unprocessable_entity
 				end
             end
-
+            
+            # Update batch status for reference_batch
             def update
                 batch = Batch.where("reference_batch = ?", params[:reference_batch])
                 if params[:action_batch] == "Close"
