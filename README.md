@@ -4,21 +4,21 @@
 
 ## 2. Project Requirements
 ### Actions implemented:
--[x] Create a new order
--[x] Get the status of an Order by client name
--[x] List the Orders of a Purchase Channel
--[x] Create a batch for a Purchase Channel
--[x] Produce a Batch 
--[x] Close part of a Batch for a Delivery Service
--[x] Simple financial repport
+- [x] Create a new order
+- [x] Get the status of an Order by client name
+- [x] List the Orders of a Purchase Channel
+- [x] Create a batch for a Purchase Channel
+- [x] Produce a Batch 
+- [x] Close part of a Batch for a Delivery Service
+- [x] Simple financial repport
 
 ## 3. Additional Stuff
 ### Some additional features were implemented to improve the plataform:
--[x] WEB UI page for check all of the orders information
--[x] Search in orders mechanism in WEB UI page
--[x] A authorization layer to allow only registered users to use the api
--[x] Functional tests for Order controller 
--[x] Docker-compose for the application 
+- [x] WEB UI page for check all of the orders information
+- [x] Search in orders mechanism in WEB UI page
+- [x] A authorization layer to allow only registered users to use the api
+- [x] Functional tests for Order controller 
+- [x] Docker-compose for the application 
 
 ## 4. How to run
 Clone the repository
